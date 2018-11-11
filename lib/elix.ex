@@ -31,17 +31,12 @@ defmodule ElixCore do
   def handle_event(_, state), do: {:ok, state}
 
   def response([ @botname | command ], msg), do: response_type command, msg
-
   def response(_, _), do: ""
 
-  def response_type([type | command], msg) do
-    case type do
-      "get" -> ElixCoreGet.response_get command, msg
-      "create" -> ElixCoreCreate.response_create command, msg
-      _ -> "It does no match the type"
-    end
-  end
-
+  def response_type(["get" | command], msg), do: ElixGet.response_get(command, msg)
+  def response_type(["create" | command], msg), do: ElixCreate.response_create(command, msg)
+  def response_type(["set" | command], msg), do: ElixSet.response_set(command, msg)
+  def response_type([_type | _command], _msg), do: "It does no match the type"
   def response_type(_, _msg), do: "There is no type"
 
 end
