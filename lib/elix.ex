@@ -43,14 +43,16 @@ defmodule ElixCore do
   def responsetype([type | command], msg) do
     case type do
       "get" -> responsecommand command, msg
+      _ -> "It does no match the type"
     end
   end
 
-  def responsetype(_, _msg), do: ""
+  def responsetype(_, _msg), do: "There is no type"
 
   def responsecommand([command | _], msg) do
     case command do
       "channel_id" -> msg.channel_id |> Integer.to_string
+      _ -> "It does not match the command"
     end
   end
 
