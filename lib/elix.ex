@@ -17,9 +17,7 @@ defmodule ElixCore do
 
   @botname Application.get_env(:elix, :botname, "Elix")
 
-  def start_link do
-    Consumer.start_link(__MODULE__)
-  end
+  def start_link, do: Consumer.start_link(__MODULE__)
 
   def handle_event({:MESSAGE_CREATE, {msg}, _ws_state}, state) do
     { _ , %{ "id" => current_id}} = Api.get_current_user
@@ -30,13 +28,9 @@ defmodule ElixCore do
     {:ok, state}
   end
 
-  def handle_event(_, state) do
-    {:ok, state}
-  end
+  def handle_event(_, state), do: {:ok, state}
 
-  def response([ @botname | command ], msg) do
-    response_type command, msg
-  end
+  def response([ @botname | command ], msg), do: response_type command, msg
 
   def response(_, _), do: ""
 
