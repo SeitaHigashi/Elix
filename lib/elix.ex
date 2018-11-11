@@ -35,26 +35,19 @@ defmodule ElixCore do
   end
 
   def response([ @botname | command ], msg) do
-    responsetype command, msg
+    response_type command, msg
   end
 
   def response(_, _), do: ""
 
-  def responsetype([type | command], msg) do
+  def response_type([type | command], msg) do
     case type do
-      "get" -> responsecommand command, msg
+      "get" -> ElixCoreGet.response_get command, msg
+      "create" -> ElixCoreCreate.response_create command, msg
       _ -> "It does no match the type"
     end
   end
 
-  def responsetype(_, _msg), do: "There is no type"
+  def response_type(_, _msg), do: "There is no type"
 
-  def responsecommand([command | _], msg) do
-    case command do
-      "channel_id" -> msg.channel_id |> Integer.to_string
-      _ -> "It does not match the command"
-    end
-  end
-
-  def responsecommand(_, _msg), do: "There is no command"
 end
