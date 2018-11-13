@@ -1,4 +1,4 @@
-defmodule ElixGetVersion do
+defmodule Elix.Response.Get.Version do
     def get_version do
         Mix.Project.config[:version] 
     end
